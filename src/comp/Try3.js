@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Try3 = () => {
   const [Matrix, setMatrix] = useState([]);
+  const [LastData, setLastData] = useState(null);
 
   useEffect(() => {
     let matrix = [];
@@ -178,9 +179,19 @@ const Try3 = () => {
   };
 
   const handleReset = () => {
+    setLastData({ StartEnd: StartEnd, StartEndNum: StartEndNum });
     setStartEnd([null, null]);
     setStartEndNum([null, null]);
     clearLights();
+  };
+
+  const handleLastMission = () => {
+    if (LastData) {
+      setStartEnd(LastData.StartEnd);
+      setStartEndNum(LastData.StartEndNum);
+    } else {
+      alert("last mission not found!");
+    }
   };
 
   useEffect(() => {
@@ -241,6 +252,12 @@ const Try3 = () => {
       <div>
         <button className="btn" onClick={() => setInc(!Inc)}>
           Direction
+        </button>
+      </div>
+
+      <div>
+        <button className="btn" onClick={handleLastMission}>
+          Last Mission
         </button>
       </div>
     </div>
